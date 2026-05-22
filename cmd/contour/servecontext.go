@@ -310,6 +310,11 @@ func (ctx *serveContext) convertToContourConfigurationSpec() contour_v1alpha1.Co
 		cipherSuites = append(cipherSuites, suite)
 	}
 
+	var ecdhCurves []string
+	for _, curve := range ctx.Config.TLS.ECDHCurves {
+		ecdhCurves = append(ecdhCurves, curve)
+	}
+
 	var accessLogFormat contour_v1alpha1.AccessLogType
 	switch ctx.Config.AccessLogFormat {
 	case config.EnvoyAccessLog:
@@ -563,6 +568,7 @@ func (ctx *serveContext) convertToContourConfigurationSpec() contour_v1alpha1.Co
 					MinimumProtocolVersion: ctx.Config.TLS.MinimumProtocolVersion,
 					MaximumProtocolVersion: ctx.Config.TLS.MaximumProtocolVersion,
 					CipherSuites:           cipherSuites,
+					ECDHCurves:             ecdhCurves,
 				},
 				SocketOptions: &contour_v1alpha1.SocketOptions{
 					TOS:          ctx.Config.Listener.SocketOptions.TOS,
@@ -606,6 +612,7 @@ func (ctx *serveContext) convertToContourConfigurationSpec() contour_v1alpha1.Co
 					MinimumProtocolVersion: ctx.Config.Cluster.UpstreamTLS.MinimumProtocolVersion,
 					MaximumProtocolVersion: ctx.Config.Cluster.UpstreamTLS.MaximumProtocolVersion,
 					CipherSuites:           ctx.Config.Cluster.UpstreamTLS.CipherSuites,
+					ECDHCurves:             ctx.Config.Cluster.UpstreamTLS.ECDHCurves,
 				},
 			},
 			Network: &contour_v1alpha1.NetworkParameters{

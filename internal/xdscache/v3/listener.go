@@ -78,6 +78,10 @@ type ListenerConfig struct {
 	// negotiating TLS 1.2.
 	CipherSuites []string
 
+	// ECDHCurves defines the ECDH curves Envoy TLS listeners will use
+	// for key exchange during TLS handshakes.
+	ECDHCurves []string
+
 	// DefaultHTTPVersions defines the default set of HTTP
 	// versions the proxy should accept. If not specified, all
 	// supported versions are accepted. This is applied to both
@@ -511,6 +515,7 @@ func (c *ListenerCache) OnChange(root *dag.DAG) {
 					minVer,
 					maxVer,
 					cfg.CipherSuites,
+					cfg.ECDHCurves,
 					vh.DownstreamValidation,
 					alpnProtos...)
 			}
@@ -530,6 +535,7 @@ func (c *ListenerCache) OnChange(root *dag.DAG) {
 					cfg.minTLSVersion(),
 					cfg.maxTLSVersion(),
 					cfg.CipherSuites,
+					cfg.ECDHCurves,
 					vh.DownstreamValidation,
 					alpnProtos...,
 				)

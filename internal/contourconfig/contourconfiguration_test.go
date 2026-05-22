@@ -70,6 +70,10 @@ func TestOverlayOnDefaults(t *testing.T) {
 						"foo",
 						"bar",
 					},
+					ECDHCurves: []string{
+						"X25519",
+						"P-256",
+					},
 				},
 			},
 			Service: &contour_v1alpha1.NamespacedName{
@@ -129,6 +133,10 @@ func TestOverlayOnDefaults(t *testing.T) {
 					MaximumProtocolVersion: "1.2",
 					CipherSuites: []string{
 						"[ECDHE-ECDSA-AES128-GCM-SHA256|ECDHE-ECDSA-CHACHA20-POLY1305]",
+					},
+					ECDHCurves: []string{
+						"P-384",
+						"P-521",
 					},
 				},
 			},

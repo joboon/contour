@@ -1279,6 +1279,7 @@ type UpstreamTLS struct {
 	MinimumProtocolVersion string
 	MaximumProtocolVersion string
 	CipherSuites           []string
+	ECDHCurves             []string
 }
 
 // CircuitBreakers holds configuration for circuit breakers.
